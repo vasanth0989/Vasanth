@@ -1,0 +1,198 @@
+Tags to look on
+
+
+<action-state id="setFailOverFlag">
+ <evaluate expression="@com.chase.cb.shared.util.CustomerAssistCustomerUtility@setCustomerInformationMaintenanceFailoverFlag(flowScope.failOverflag)" />
+ <transition to="kycPilotWarningDecision" />
+</action-state>
+
+CA:DEBUG 16:25:01:149 ActionState - Entering state 'setFailOverFlag' of flow 'ownershipSignerChange-flow'
+CA:DEBUG 16:25:01:149 ActionExecutor - Executing [EvaluateAction@1b443eb expression = @com.chase.cb.shared.util.CustomerAssistCustomerUtility@setCustomerInformationMaintenanceFailoverFlag(flowScope.failOverflag), resultExpression = [null]]
+CA:DEBUG 16:25:01:150 ActionExecutor - Finished executing [EvaluateAction@1b443eb expression = @com.chase.cb.shared.util.CustomerAssistCustomerUtility@setCustomerInformationMaintenanceFailoverFlag(flowScope.failOverflag), resultExpression = [null]]; result = success
+CA:DEBUG 16:25:01:150 Transition - Executing [Transition@1d70daa on = *, to = kycPilotWarningDecision]
+CA:DEBUG 16:25:01:150 Transition - Exiting state 'setFailOverFlag'
+
+
+<decision-state id="kycPilotWarningDecision">
+<if test="@com.chase.cb.shared.util.CustomerAssistCustomerUtility@isBeneficialOwnerWarning(flowScope.flowCustomer)" then="kycPilotWarning" else="setup" />
+</decision-state>
+
+CA:DEBUG 16:25:01:150 DecisionState - Entering state 'kycPilotWarningDecision' of flow 'ownershipSignerChange-flow'
+CA:DEBUG 16:25:01:153 Transition - Executing [Transition@1c22a62 on = *, to = setup]
+CA:DEBUG 16:25:01:153 Transition - Exiting state 'kycPilotWarningDecision'
+
+
+<action-state id="setup">
+<evaluate expression="ownershipSignerChangeProcessor.setup(flowModel, flowScope.flowCustomer)"/>
+<transition on="success" to="initialValidation" />
+</action-state>
+
+CA:DEBUG 16:25:01:154 ActionState - Entering state 'setup' of flow 'ownershipSignerChange-flow'
+CA:DEBUG 16:25:01:154 ActionExecutor - Executing [EvaluateAction@6ca27a expression = ownershipSignerChangeProcessor.setup(flowModel, flowScope.flowCustomer), resultExpression = [null]]
+
+CA:INFO  16:25:38:417 RsiLogger - 47ea9490e2434f3890da99b728c6d41f,com.chase.ssa.si.rest.messenger.businessrelationshipinquiry.BusinessRelationshipInquiryMessenger,com.chase.si.model.RSIRequest,N,
+ROOT:DEBUG BusinessRelationshipInquiryMessenger - METHOD: Log RSI Object MESSAGE: RSI Object - com.chase.rsi.services.customer.businessrelationship.model.BusinessRelationshipRequest XML
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><RSIRequest xmlns="http://si.chase.com/model" xmlns:ns2="http://rsi.chase.com/model" xmlns:ns3="http://sdb.es.chase.com/sdb/v1_0/sdb" xmlns:ns4="http://sdb.es.chase.com/sdb/v1_0/sdb/rsi" xmlns:ns5="http://rsi.chase.com/services/account/accountmaintenance/model" xmlns:ns6="http://rsi.chase.com/services/account/cardaccountinquiry/model" xmlns:ns7="http://rsi.chase.com/services/account/relatedcustomersearch/model" xmlns:ns8="http://rsi.chase.com/services/admin/fxcurrencyinfo/model" xmlns:ns9="http://rsi.chase.com/services/admin/queuelegacyitem/model" xmlns:ns10="http://rsi.chase.com/services/account/wiretransfer/model" xmlns:ns11="http://rsi.chase.com/services/account/getinstantprinters/model" xmlns:ns12="http://rsi.chase.com/services/account/preferencemaintenance/model" xmlns:ns13="http://rsi.chase.com/services/customer/notificationinquiry/model" xmlns:ns14="http://rsi.chase.com/services/account/cdiraaccountmaintenance/model" xmlns:ns15="http://rsi.chase.com/services/account/accountcustomerrelationshipmaintenance/model" xmlns:ns16="http://rsi.chase.com/services/account/cardaccountmaintenance/model" xmlns:ns17="http://rsi.chase.com/services/customer/enhancednameaddressphonemaintenance/model" xmlns:ns18="http://rsi.chase.com/services/account/safedepositboxmaintenance/model" xmlns:ns19="http://rsi.chase.com/services/customer/customercombine/model" xmlns:ns20="http://rsi.chase.com/services/account/preauthorizedautomatictransferinquiry/model" xmlns:ns21="http://rsi.chase.com/services/account/accountinquiry/model" xmlns:ns22="http://rsi.chase.com/services/account/loanservicing/model" xmlns:ns23="http://rsi.chase.com/services/customer/notificationmaintenance/model" xmlns:ns24="http://rsi.chase.com/services/customer/multiplenotificationmaintenance/model" xmlns:ns25="http://rsi.chase.com/services/admin/queuedebitcardresearch/model" xmlns:ns26="http://rsi.chase.com/services/account/cdiraaccountinquiry/model" xmlns:ns27="http://rsi.chase.com/services/customer/enhancednameinquiry/model" xmlns:ns28="http://rsi.chase.com/services/customer/enhancedaddressinquiry/model" xmlns:ns29="http://rsi.chase.com/services/customer/enhancedphoneinquiry/model" xmlns:ns30="http://rsi.chase.com/services/customer/enhancedemailinquiry/model" xmlns:ns31="http://rsi.chase.com/services/account/loanlockratecalculator/model" xmlns:ns32="http://rsi.chase.com/services/customer/customerduediligence/model" xmlns:ns33="http://rsi.chase.com/services/Customer/customerrelationshipmaintenance/model" xmlns:ns34="http://rsi.chase.com/services/account/accountduediligence/model" Version="1.0"><RequestContext><MessageID>47ea9490e2434f3890da99b728c6d41f</MessageID><ContactID></ContactID><SourceAuditInfo><BankerInfo><BankerName>ANISH PALAPETTY</BankerName><PhoneNumber Type="PRIMARY"><Number>6152454878</Number></PhoneNumber></BankerInfo><BankNumber Primary="true">999</BankNumber><ChannelID>CA</ChannelID><Location>U</Location><SubLocation>NY1-0004</SubLocation><LoginID>O077023</LoginID></SourceAuditInfo><DestinationInfo><BankNumber Primary="true">999</BankNumber><Environment>T</Environment></DestinationInfo><Credential>p/VdN9pYMzmBPR2QLTBLhA==</Credential></RequestContext><ServiceRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns36="http://rsi.chase.com/services/customer/businessrelationship/model" xsi:type="ns36:BusinessRelationshipRequest" Version="1.0"><EnterpriseID>0253956464</EnterpriseID><ns2:RelationshipType>NIE</ns2:RelationshipType></ServiceRequest></RSIRequest>
+CA:DEBUG 16:25:38:425 SiRestClient - METHOD: requestXml: MESSAGE: serviceRequest (BusinessRelationship)
+<?xml version="1.0" encoding="UTF-8"?><RSIRequest xmlns="http://si.chase.com/model" xmlns:ns2="http://rsi.chase.com/model" Version="1.0">
+  <RequestContext>
+    <MessageID>47ea9490e2434f3890da99b728c6d41f</MessageID>
+    <ContactID/>
+    <SourceAuditInfo>
+      <BankerInfo>
+        <BankerName>ANISH PALAPETTY</BankerName>
+        <PhoneNumber Type="PRIMARY">
+          <Number>6152454878</Number>
+        </PhoneNumber>
+      </BankerInfo>
+      <BankNumber Primary="true">999</BankNumber>
+      <ChannelID>CA</ChannelID>
+      <Location>U</Location>
+      <SubLocation>NY1-0004</SubLocation>
+      <LoginID>O077023</LoginID>
+    </SourceAuditInfo>
+    <DestinationInfo>
+      <BankNumber Primary="true">999</BankNumber>
+      <Environment>T</Environment>
+    </DestinationInfo>
+    <Credential>p/VdN9pYMzmBPR2QLTBLhA==</Credential>
+  </RequestContext>
+  <ServiceRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns36="http://rsi.chase.com/services/customer/businessrelationship/model" xsi:type="ns36:BusinessRelationshipRequest" Version="1.0">
+    <EnterpriseID>0253956464</EnterpriseID>
+    <ns2:RelationshipType>NIE</ns2:RelationshipType>
+  </ServiceRequest>
+</RSIRequest>
+serviceRequest (BusinessRelationship) length=3552
+CA:DEBUG 16:25:39:048 SiRestClient - METHOD: responseXml: MESSAGE: serviceResponse (BusinessRelationship)
+<?xml version="1.0" encoding="UTF-8"?><RSIResponse xmlns="http://si.chase.com/model" Version="7.1">
+  <ResponseContext>
+    <ErrorMessage ErrorCode="RSIEXT2001" HostCode="CAA01000">CAAM580 :                 CUSTOMER HAS NO NIE RELATIONSHIPS</ErrorMessage>
+  </ResponseContext>
+</RSIResponse>
+serviceResponse (BusinessRelationship) length=280
+CA:INFO  16:25:39:079 RsiLogger - 6366d5262e44456ba8912c2f6dbb8aaf,com.chase.ssa.si.rest.messenger.businessrelationshipinquiry.BusinessRelationshipInquiryMessenger,com.chase.si.model.RSIRequest,N,
+ROOT:DEBUG BusinessRelationshipInquiryMessenger - METHOD: Log RSI Object MESSAGE: RSI Object - com.chase.rsi.services.customer.businessrelationship.model.BusinessRelationshipRequest XML
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><RSIRequest xmlns="http://si.chase.com/model" xmlns:ns2="http://rsi.chase.com/model" xmlns:ns3="http://sdb.es.chase.com/sdb/v1_0/sdb" xmlns:ns4="http://sdb.es.chase.com/sdb/v1_0/sdb/rsi" xmlns:ns5="http://rsi.chase.com/services/account/accountmaintenance/model" xmlns:ns6="http://rsi.chase.com/services/account/cardaccountinquiry/model" xmlns:ns7="http://rsi.chase.com/services/account/relatedcustomersearch/model" xmlns:ns8="http://rsi.chase.com/services/admin/fxcurrencyinfo/model" xmlns:ns9="http://rsi.chase.com/services/admin/queuelegacyitem/model" xmlns:ns10="http://rsi.chase.com/services/account/wiretransfer/model" xmlns:ns11="http://rsi.chase.com/services/account/getinstantprinters/model" xmlns:ns12="http://rsi.chase.com/services/account/preferencemaintenance/model" xmlns:ns13="http://rsi.chase.com/services/customer/notificationinquiry/model" xmlns:ns14="http://rsi.chase.com/services/account/cdiraaccountmaintenance/model" xmlns:ns15="http://rsi.chase.com/services/account/accountcustomerrelationshipmaintenance/model" xmlns:ns16="http://rsi.chase.com/services/account/cardaccountmaintenance/model" xmlns:ns17="http://rsi.chase.com/services/customer/enhancednameaddressphonemaintenance/model" xmlns:ns18="http://rsi.chase.com/services/account/safedepositboxmaintenance/model" xmlns:ns19="http://rsi.chase.com/services/customer/customercombine/model" xmlns:ns20="http://rsi.chase.com/services/account/preauthorizedautomatictransferinquiry/model" xmlns:ns21="http://rsi.chase.com/services/account/accountinquiry/model" xmlns:ns22="http://rsi.chase.com/services/account/loanservicing/model" xmlns:ns23="http://rsi.chase.com/services/customer/notificationmaintenance/model" xmlns:ns24="http://rsi.chase.com/services/customer/multiplenotificationmaintenance/model" xmlns:ns25="http://rsi.chase.com/services/admin/queuedebitcardresearch/model" xmlns:ns26="http://rsi.chase.com/services/account/cdiraaccountinquiry/model" xmlns:ns27="http://rsi.chase.com/services/customer/enhancednameinquiry/model" xmlns:ns28="http://rsi.chase.com/services/customer/enhancedaddressinquiry/model" xmlns:ns29="http://rsi.chase.com/services/customer/enhancedphoneinquiry/model" xmlns:ns30="http://rsi.chase.com/services/customer/enhancedemailinquiry/model" xmlns:ns31="http://rsi.chase.com/services/account/loanlockratecalculator/model" xmlns:ns32="http://rsi.chase.com/services/customer/customerduediligence/model" xmlns:ns33="http://rsi.chase.com/services/Customer/customerrelationshipmaintenance/model" xmlns:ns34="http://rsi.chase.com/services/account/accountduediligence/model" Version="1.0"><RequestContext><MessageID>6366d5262e44456ba8912c2f6dbb8aaf</MessageID><ContactID></ContactID><SourceAuditInfo><BankerInfo><BankerName>ANISH PALAPETTY</BankerName><PhoneNumber Type="PRIMARY"><Number>6152454878</Number></PhoneNumber></BankerInfo><BankNumber Primary="true">999</BankNumber><ChannelID>CA</ChannelID><Location>U</Location><SubLocation>NY1-0004</SubLocation><LoginID>O077023</LoginID></SourceAuditInfo><DestinationInfo><BankNumber Primary="true">999</BankNumber><Environment>T</Environment></DestinationInfo><Credential>p/VdN9pYMzmBPR2QLTBLhA==</Credential></RequestContext><ServiceRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns36="http://rsi.chase.com/services/customer/businessrelationship/model" xsi:type="ns36:BusinessRelationshipRequest" Version="1.0"><EnterpriseID>0253956464</EnterpriseID><ns2:RelationshipType>GEMINI</ns2:RelationshipType></ServiceRequest></RSIRequest>
+CA:DEBUG 16:25:39:088 SiRestClient - METHOD: requestXml: MESSAGE: serviceRequest (BusinessRelationship)
+<?xml version="1.0" encoding="UTF-8"?><RSIRequest xmlns="http://si.chase.com/model" xmlns:ns2="http://rsi.chase.com/model" Version="1.0">
+  <RequestContext>
+    <MessageID>6366d5262e44456ba8912c2f6dbb8aaf</MessageID>
+    <ContactID/>
+    <SourceAuditInfo>
+      <BankerInfo>
+        <BankerName>ANISH PALAPETTY</BankerName>
+        <PhoneNumber Type="PRIMARY">
+          <Number>6152454878</Number>
+        </PhoneNumber>
+      </BankerInfo>
+      <BankNumber Primary="true">999</BankNumber>
+      <ChannelID>CA</ChannelID>
+      <Location>U</Location>
+      <SubLocation>NY1-0004</SubLocation>
+      <LoginID>O077023</LoginID>
+    </SourceAuditInfo>
+    <DestinationInfo>
+      <BankNumber Primary="true">999</BankNumber>
+      <Environment>T</Environment>
+    </DestinationInfo>
+    <Credential>p/VdN9pYMzmBPR2QLTBLhA==</Credential>
+  </RequestContext>
+  <ServiceRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns36="http://rsi.chase.com/services/customer/businessrelationship/model" xsi:type="ns36:BusinessRelationshipRequest" Version="1.0">
+    <EnterpriseID>0253956464</EnterpriseID>
+    <ns2:RelationshipType>GEMINI</ns2:RelationshipType>
+  </ServiceRequest>
+</RSIRequest>
+serviceRequest (BusinessRelationship) length=3555
+CA:DEBUG 16:25:39:560 SiRestClient - METHOD: responseXml: MESSAGE: serviceResponse (BusinessRelationship)
+<?xml version="1.0" encoding="UTF-8"?><RSIResponse xmlns="http://si.chase.com/model" Version="7.1">
+  <ResponseContext>
+    <ErrorMessage ErrorCode="RSIEXT2001" HostCode="CAA01000">CAAM580 :                 CUSTOMER HAS NO GEM OR SIB RELATION</ErrorMessage>
+  </ResponseContext>
+</RSIResponse>
+serviceResponse (BusinessRelationship) length=282
+
+CA:DEBUG 16:25:39:572 ActionExecutor - Finished executing [EvaluateAction@6ca27a expression = ownershipSignerChangeProcessor.setup(flowModel, flowScope.flowCustomer), resultExpression = [null]]; result = success
+CA:DEBUG 16:25:39:572 Transition - Executing [Transition@386760 on = success, to = initialValidation]
+CA:DEBUG 16:25:39:572 Transition - Exiting state 'setup'
+
+
+<decision-state id="showPersonAuthorizingTransactionPage">
+<if test="@com.chase.ca.cs.flows.knowYourCustomerNonIndividual.KnowYourCustomerNonIndividualUtility@capturePersonAuthorizingTransaction(flowScope.flowCustomer)" then="personAuthorizingTransaction" else="preAuthorizedCustomerDecision" />
+</decision-state> 
+
+CA:DEBUG 16:25:44:994 DecisionState - Entering state 'showPersonAuthorizingTransactionPage' of flow 'ownershipSignerChange-flow'
+CA:DEBUG 16:25:44:995 Transition - Executing [Transition@b4e2c5 on = @com.chase.ca.cs.flows.knowYourCustomerNonIndividual.KnowYourCustomerNonIndividualUtility@capturePersonAuthorizingTransaction(flowScope.flowCustomer), to = personAuthorizingTransaction]
+CA:DEBUG 16:25:44:995 Transition - Exiting state 'showPersonAuthorizingTransactionPage'
+
+
+<subflow-state id="personAuthorizingTransaction" subflow="personAuthorizingTransaction-flow">
+		<input name="flowCustomer" value="flowScope.flowCustomer" />
+		<input name="flowName" value="'Account Owner/Signer Change'"/>
+		<output name="personAuthorizingTransactionInfo" value="flowScope.personAuthorizingTransactionInfo"/>
+		<transition on="navigateToLandingPage" to="preAuthorizedCustomerDecision"/>
+		<transition on="navigateToCustomerSummary" to="returnToCustomerSummary" />
+</subflow-state>
+
+CA:DEBUG 16:25:44:995 SubflowState - Entering state 'personAuthorizingTransaction' of flow 'ownershipSignerChange-flow'
+CA:DEBUG 16:25:45:199 SubflowState - Calling subflow 'personAuthorizingTransaction-flow' with input map['flowCustomer' -> VASAN, 'flowName' -> 'Account Owner/Signer Change']
+
+<view-state id="input" view="personAuthorizingTransaction_def" model="personAuthorizingTransactionForm">
+			<on-render>
+				<set name="flashScope.pageTitle" value="'Who is Authorizing the Transaction For'" />
+				<set name="flashScope.customerName" value="personAuthorizingTransactionForm.getPageHeader(flowScope.flowCustomer)" />
+			</on-render>	
+			<transition on="back" to="navigateToCustomerSummary" />
+			<transition on="continue" to="navigateToLandingPage">
+		 		<evaluate expression="personAuthorizingTransactionForm.doAfterBind()"/>
+			</transition>		   
+		</view-state> 
+
+CA:DEBUG 16:25:49:207 ViewState - Entering state 'input' of flow 'personAuthorizingTransaction-flow'
+CA:DEBUG 16:26:28:885 ViewState - Event 'continue' returned from view [ServletMvcView@1c0df88 view = org.springframework.webflow.mvc.view.FlowAjaxTilesView: name 'personAuthorizingTransaction_def'; URL [personAuthorizingTransaction_def]]
+CA:DEBUG 16:26:28:885 ActionExecutor - Executing [EvaluateAction@1938bdb expression = personAuthorizingTransactionForm.doAfterBind(), resultExpression = [null]]
+CA:DEBUG 16:26:28:885 ActionExecutor - Finished executing [EvaluateAction@1938bdb expression = personAuthorizingTransactionForm.doAfterBind(), resultExpression = [null]]; result = success
+CA:DEBUG 16:26:28:885 Transition - Exiting state 'input'
+
+
+
+<subflow-state id="personAuthorizingTransaction" subflow="personAuthorizingTransaction-flow">
+		<input name="flowCustomer" value="flowScope.flowCustomer" />
+		<input name="flowName" value="'Account Owner/Signer Change'"/>
+		<output name="personAuthorizingTransactionInfo" value="flowScope.personAuthorizingTransactionInfo"/>
+		<transition on="navigateToLandingPage" to="preAuthorizedCustomerDecision"/>
+		<transition on="navigateToCustomerSummary" to="returnToCustomerSummary" />
+</subflow-state>
+
+CA:DEBUG 16:26:28:885 EndState - Entering state 'navigateToLandingPage' of flow 'personAuthorizingTransaction-flow'
+CA:DEBUG 16:26:28:886 Transition - Executing [Transition@d829cb on = navigateToLandingPage, to = preAuthorizedCustomerDecision]
+CA:DEBUG 16:26:28:886 Transition - Exiting state 'personAuthorizingTransaction'
+
+
+<decision-state id="preAuthorizedCustomerDecision">
+		<if test="flowScope.flowCustomer.isIndividual()" then="showPreAuthorizedCustomer" else="showPreAuthorizedBusinessCustomer" />
+	</decision-state>
+CA:DEBUG 16:26:28:886 DecisionState - Entering state 'preAuthorizedCustomerDecision' of flow 'ownershipSignerChange-flow'
+CA:DEBUG 16:26:28:886 Transition - Executing [Transition@19fdf45 on = *, to = showPreAuthorizedBusinessCustomer]
+CA:DEBUG 16:26:28:886 Transition - Exiting state 'preAuthorizedCustomerDecision'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
