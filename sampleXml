@@ -1,0 +1,45 @@
+<flowBase>
+<flow name="ownershipSignerChange-flow">
+
+<actionState name="setFailOverFlag">
+<actionExecutor>
+<class name="com.chase.cb.shared.util.CustomerAssistCustomerUtility" method="setCustomerInformationMaintenanceFailoverFlag" result="success" />
+</actionExecutor>
+<transition on="" to="kycPilotWarningDecision"></transition>
+</actionState>
+
+<decisionState name="kycPilotWarningDecision">
+<transition on="" to="setup" class="" method="">
+<class name="" method=""/>
+</transition>
+</decisionState>
+
+<actionState name="setup">
+<actionExecutor>
+<class name="ownershipSignerChangeProcessor" method="setup(flowModel, flowScope.flowCustomer)" result="success"/>
+</actionExecutor>
+<rsiSection>
+<rsiRequest name="BusinessRelationshipRequest" >
+<data></data>
+</rsiRequest>
+<rsiResponse name="BusinessRelationshipResponse" >
+<data></data>
+</rsiResponse>
+<rsiSection>
+<transition on="success" to="initialValidation" class="" method=""></transition>
+</actionState>
+
+<decisionState name="showPersonAuthorizingTransactionPage">
+<transition on="methodDriven" to="setup" class="com.chase.ca.cs.flows.knowYourCustomerNonIndividual.KnowYourCustomerNonIndividualUtility" method="capturePersonAuthorizingTransaction(flowScope.flowCustomer)">
+</transition>
+</decisionState>
+
+<subflow name="personAuthorizingTransaction-flow">
+<viewState name="input" >
+
+</viewState>
+
+</subflow>
+
+</flow>
+</flowBase>
