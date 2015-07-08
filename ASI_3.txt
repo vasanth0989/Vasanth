@@ -1,0 +1,52 @@
+Driven by an Architecture to promote modularity in Customer Assist - reference implementation to be built in house.
+Initial implementation was to be a platform built on Spring Web Flow to reuse “Modules”.
+Regulatory demand drove reusability X-LOB – TCPA, KYC, SCRA, etc.
+Decisions made ASI a development stack to quickly build Applications & Modules not only in the DSST space, but for the whole of CCB.
+
+UI Framework
+Support client side only development to build stateless web applications and modules.  Parallel to Chase 3.0 and work toward a “Core Framework” convergence in the future.
+Support Spring HATEAOS Restful Webservices to drive Presentation.
+Continue to support tagging strategy for JSPs and Stateful development (Spring Web Flow) for backward compatibility and potential application needs.
+
+Testing
+Unit Testing strategies for JavaScript and Java code.
+Automated Testing strategies (used on reference application in ASI as well as built Apps and Modules)
+
+A Single Page Application (SPA) is a web application that uses only one HTML web page as a shell for all the application's web pages and whose end-user interactions are implemented by using HTML, JS, and CSS.
+SPA’s react appropriately to changes in data.
+
+AMD
+Asynchronous Module Definition
+JavaScript specification that defines an API for defining code modules and their dependencies, and loading them asynchronously
+Provides encapsulation of modules
+AMDs obviate the need for name spacing through global variables.
+
+Client Side
+Module System (AMD): RequireJS (www.requirejs.org)
+Core MVC: CanJS (canjs.com)
+Routing: PageJS (visionmedia.github.io/page.js)
+Util (Ajax, Promise, DOM, etc.): JQuery (jquery.com)
+View: Ractive.js (www.ractivejs.org) (and potentially other mustache compatible templates)
+Unit Testing: Jasmine (jasmine.github.io)
+Packaging: NPM (www.npmjs.com) & Bower (bower.io)
+Build System: Gulp (gulpjs.com)
+Server Side
+Java: 
+JavaSE 6+
+JavaEE 6+ compatible Web Server (currently Websphere AS)
+Spring MVC
+Leverage Spring HATEAOS for Hypermedia driven servicing – true REST.
+Spring Webflow for stateful applications.
+Java Standard Tag Library
+Custom tags to leverage client side technology in JSPs for backward compatibility with ASI 2.x-.
+
+
+
+ASI Home
+http://fastdevl0516.svr.emea.jpmchase.net:8090/
+Mustache
+https://github.com/janl/mustache.js
+Single Page Applications
+http://www.johnpapa.net/pageinspa/
+Building Single Page Applications
+http://code.tutsplus.com/tutorials/important-considerations-when-building-single-page-web-apps--net-29356
