@@ -50,3 +50,36 @@ Single Page Applications
 http://www.johnpapa.net/pageinspa/
 Building Single Page Applications
 http://code.tutsplus.com/tutorials/important-considerations-when-building-single-page-web-apps--net-29356
+
+part from that, here are some useful links related to the technology stack
+RequireJS
+
+http://requirejs.org/
+http://code.tutsplus.com/tutorials/a-requirejs-backbone-and-bower-starter-template--net-29211 
+(This is a client side MVC application built using backbone but it is great starting point for understanding how client side MVC applications are built)
+Bower
+
+http://bower.io
+CanJS
+
+http://canjs.com/index.html
+http://code.tutsplus.com/tutorials/diving-into-canjs--net-25105
+Ractive.js
+
+http://www.ractivejs.org/
+Jasmine
+
+http://jasmine.github.io/2.0/introduction.html
+http://evanhahn.com/how-do-i-jasmine/
+https://github.com/velesin/jasmine-jquery
+
+Angular JS
+https://www.codeschool.com/courses/shaping-up-with-angular-js
+ 
+Ember JS
+http://ember.codeschool.com/levels/1/challenges/1
+ 
+ 
+All Javascript:
+https://www.codeschool.com/paths/javascript
+
