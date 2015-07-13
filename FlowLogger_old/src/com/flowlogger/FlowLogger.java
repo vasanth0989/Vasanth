@@ -1,10 +1,8 @@
 package com.flowlogger;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,10 +14,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
-import com.flowlogger.flowchart.FlowChartJson;
-import com.flowlogger.flowchart.FlowChartJsonConverter;
 import com.flowlogger.pojo.ActionExecutor;
 import com.flowlogger.pojo.ActionState;
 import com.flowlogger.pojo.Flow;
@@ -38,8 +32,7 @@ public class FlowLogger {
 	public static void main(String[] args) {
 		FlowLogger flowLogger = new FlowLogger();
 		flowLogger.creatFlowXML("E:\\Workarea\\FlowLogger\\ca-logs.txt");
-//		flowLogger.orderFlow();
-		flowLogger.prepareFlowChart();
+		flowLogger.orderFlow();
 		System.out.println("Completed...");
 
 	}
@@ -256,83 +249,13 @@ public class FlowLogger {
 			{
 				for(ActionExecutor actionExecut:stat.getActionExecutors())
 				{
-					System.out.println("###########The size is greater than 1");
-					System.out.println("ClassName:"+actionExecut.getClassName());
-					System.out.println("MethodName:"+actionExecut.getMethodName());
-					System.out.println("Result:"+actionExecut.getResult());
+					System.out.println(actionExecut.getClassName());
+					System.out.println(actionExecut.getMethodName());
+					System.out.println(actionExecut.getResult());
 				}
 			}
 			
 			System.out.println("End of State****");
-		}
-	}
-	
-	private void prepareFlowChart()
-	{
-		FlowChartJsonConverter flowchartJsonConverter = new FlowChartJsonConverter();
-		FlowChartJson flowChartJson=flowchartJsonConverter.convertToFlowChartJsonObject(orderdStateList);
-		ObjectMapper m = new ObjectMapper();
-		String jsonData=null;
-		
-		try {
-			jsonData= m.writeValueAsString(flowChartJson);
-			System.out.println(jsonData);
-			//m.writeValue(new File("E:\\user.json"),flowChartJson);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		BufferedWriter bufferedWriter=null;
-		BufferedReader bufferdReader = null;
-		StringBuffer strBuff=new StringBuffer();
-		String line;
-		
-		try
-		{
-			bufferdReader = new BufferedReader(new FileReader("E:\\Workarea\\FlowLogger\\FlowChart\\flowchart.html"));
-			while((line=bufferdReader.readLine())!=null)
-			{
-				strBuff.append(line);
-				strBuff.append("\n");
-			}
-			
-			int textAreaStartIndex=strBuff.indexOf("300px")+7;
-			int textAreaEndIndex=strBuff.indexOf("</textarea>");
-//			String textArea=strBuff.substring(textAreaStartIndex,textAreaEndIndex);
-			//System.out.println(textArea);
-			
-			strBuff.replace(textAreaStartIndex, textAreaEndIndex, jsonData);
-			
-			bufferedWriter=new BufferedWriter(new FileWriter(new File("E:\\Workarea\\FlowLogger\\FlowChart\\abc.html")));
-			bufferedWriter.write(new String(strBuff));
-			
-		}
-		catch(IOException ie)
-		{
-			ie.printStackTrace();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try {
-				bufferdReader.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-			try {
-				bufferedWriter.flush();
-				bufferedWriter.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 

@@ -68,13 +68,10 @@ public class TestMain {
 		
 		//TCPA:DEBUG - SubflowState - Calling subflow 'tcpa-flow' with input map['standaloneMode' -> true, 'channelCode' -> '1', 'ecis' -> list['0260358593'], 'customer' -> [null], 'lobPreferenceViewSupported' -> true, 'lobCode' -> '2', 'banker' -> com.chase.arc.session.model.domain.UserModel@69d]
 		
-		/*String str="TCPA:DEBUG - Transition - Executing [Transition@9a5663 on = continue, to = customerSearch]";
+		String str="TCPA:DEBUG - Transition - Executing [Transition@9a5663 on = continue, to = customerSearch]";
 		int startIndex= str.indexOf("on =");
 		int endIndex= str.indexOf(", to");
-		System.out.println("it is:"+str.substring(startIndex+5,endIndex));*/
-		
-		
-		
+		System.out.println("it is:"+str.substring(startIndex+5,endIndex));
 		
          
 	}
