@@ -1,0 +1,164 @@
+package com.test;
+
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+
+public class CheckingConcurrent {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		String model = "A";
+		Map<String, Set<String>> relationships = new HashMap<String, Set<String>>();
+		Set<String> aSet = new HashSet<String>();
+		aSet.add("A");
+		aSet.add("B");
+		aSet.add("C");
+		aSet.add("D");
+		
+		Set<String> bSet = new HashSet<String>();
+		aSet.add("E");
+		aSet.add("F");
+		aSet.add("G");
+		aSet.add("H");
+		
+		relationships.put("A", aSet);
+		relationships.put("B", bSet);
+		
+		for (String relationshipType : relationships.keySet())
+		{
+			Set<String> relationshipsForType = relationships.get(relationshipType);
+			Set<String> tempRelationshipsForType = new HashSet<String>();
+			if (relationshipsForType != null)
+			{
+				for (Iterator<String> iter = relationshipsForType.iterator(); iter.hasNext();)
+				{
+					
+					String relationship = iter.next();
+
+					String otherModel = null;
+
+					String firstModel = "A";
+					String secondModel = "Z";
+					if (firstModel.equals(model))
+					{
+						otherModel = secondModel;
+					}
+					else if (secondModel.equals(model))
+					{
+						otherModel = firstModel;
+					}
+
+					
+					if (otherModel != null)
+					{
+						tempRelationshipsForType.add(relationship);
+					}
+					
+				}
+				
+				relationshipsForType.removeAll(tempRelationshipsForType);
+				
+			}
+		}
+		
+		-----------------------------------------------------------
+		
+		private void removeReferences(Map<IRelationshipType, Set<Relationship>> relationships, IModel model)
+	{
+		// ?
+		if (!relationships.equals(relationships))
+		{
+			Map<IRelationshipType, Set<Relationship>> newRelationships = new HashMap<IRelationshipType, Set<Relationship>>(relationships);
+
+			for (IRelationshipType relationshipType : relationships.keySet())
+			{
+				Set<Relationship> relationshipsForType = relationships.get(relationshipType);
+				if (relationshipsForType != null)
+				{
+					Set<Relationship> newRelationshipsForType = relationships.get(relationshipType);
+					if (newRelationshipsForType == null)
+					{
+						newRelationshipsForType = new LinkedHashSet<Relationship>();
+						newRelationships.put(relationshipType, newRelationshipsForType);
+					}
+
+					newRelationshipsForType.addAll(relationshipsForType);
+				}
+			}
+
+			relationships = newRelationships;
+		}
+
+		if (!relationships.isEmpty())
+		{
+			Set<IModel> unrelatedModelsToRemove = new HashSet<IModel>();
+			Set<IModel> unrelatedModelsDup = new HashSet<IModel>();
+			for (IRelationshipType relationshipType : relationships.keySet())
+			{
+				Set<Relationship> relationshipsForType = relationships.get(relationshipType);
+				Set<Relationship> tempRelationshipsForType = new HashSet<Relationship>();
+				if (relationshipsForType != null)
+				{
+					for (Iterator<Relationship> iter = relationshipsForType.iterator(); iter.hasNext();)
+					{
+						Relationship relationship = iter.next();
+
+						IModel otherModel = null;
+
+						IModel firstModel = relationship.getFirstModel(false);
+						IModel secondModel = relationship.getSecondModel(false);
+						if (firstModel.equals(model))
+						{
+							otherModel = secondModel;
+						}
+						else if (secondModel.equals(model))
+						{
+							otherModel = firstModel;
+						}
+
+						if (otherModel != null)
+						{
+							tempRelationshipsForType.add(relationship);
+
+							if ((model instanceof CustomerModel && !(otherModel instanceof CustomerModel) && (!(otherModel instanceof AccountModel) || ((AccountModel) otherModel)
+								.isSorAccount()))
+								|| (model instanceof AccountModel && !(otherModel instanceof CustomerModel) && !(otherModel instanceof AccountModel)))
+							{
+								if (unrelatedModelsToRemove.contains(otherModel))
+								{
+									unrelatedModelsDup.add(otherModel);
+									unrelatedModelsToRemove.remove(otherModel);
+								}
+								else if (!unrelatedModelsDup.contains(otherModel))
+								{
+									unrelatedModelsToRemove.add(otherModel);
+								}
+							}
+						}
+					}
+					relationshipsForType.removeAll(tempRelationshipsForType);
+				}
+			}
+
+			removeUnrelatedModels(relationships, unrelatedModelsToRemove);
+		}
+	}
+		
+		
+		
+
+		
+		
+		
+
+	}
+
+}
